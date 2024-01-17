@@ -1,0 +1,57 @@
+﻿@model TasksManager.Task
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 text-center">
+    <h2 class="text-center" style="font-weight: bold">Eliminar Del Listado De Tarea</h2>
+
+    <hr />
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt class="font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Descripcion)
+                </dd>
+
+                <dt class="font-weight-bold">
+                    Fecha De Creacion
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FechaCreacion)
+                </dd>
+
+                <dt class="font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Estado)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Estado)
+                </dd>
+
+                <dt class="font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Prioridad)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Prioridad)
+                </dd>
+            </dl>
+
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Eliminar" class="btn btn-danger mx-2" /> |
+                    @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-secondary" })
+                </div>
+            }
+        </div>
+        </div>
+    </div>

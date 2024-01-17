@@ -1,0 +1,81 @@
+﻿@model TasksManager.Task
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center" style="font-weight: bold">Listado De Tareas</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card mx-auto mt-4" style="max-width: 500px;">
+        <div class="card-body text-center">
+            <h4 class="card-title text-primary mb-4">Editar La Tarea</h4>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <label style="margin-bottom: 15px;color:darkgreen; font-size:22px; font-weight:bold; font-family:'Times New Roman'">Descripcion</label>
+                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control mx-auto required", style = "margin-bottom: 15px; box-shadow: 0px 3px 6px gray" } })
+                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label style="margin-bottom: 15px; color: green; font-size: 22px; font-weight: bold; font-family: 'Times New Roman'">Fecha De Creacion</label>
+
+                @Html.HiddenFor(model => model.FechaCreacion, new { @Value = DateTime.Now.ToString("yyyy-MM-dd") })
+                <p class="form-control-static mx-auto" style="margin-bottom: 15px; font-size: 20px;color:red; font-weight: bold; font-family: 'Times New Roman'">@DateTime.Now.ToString("yyyy-MM-dd")</p>
+            </div>
+
+            <div class="form-group">
+                <label style="margin-bottom: 15px; color: darkgreen; font-size: 22px; font-weight: bold; font-family: 'Times New Roman' ">Estado</label>
+                @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { @class = "form-control mx-auto required", style = "margin-bottom: 15px; box-shadow: 0px 3px 6px gray" } })
+                @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label style="margin-bottom: 15px; color: darkgreen; font-size: 22px; font-weight: bold; font-family: 'Times New Roman' ">Prioridad</label>
+                @Html.EditorFor(model => model.Prioridad, new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "form-control mx-auto required",
+                        style = "margin-bottom: 15px; box-shadow: 0px 3px 6px gray;",
+                        type = "number",
+                        min = "1",
+                        max = "10",
+                        placeholder = "Seleccione la prioridad del 1 al 10"
+                    }
+                })
+                @Html.ValidationMessageFor(model => model.Prioridad, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group text-center mt-4">
+
+                <input type="submit" value="Editar Tarea" class="btn btn-warning btn-default form-group text-center mt-4" style=" color:white; font-weight:bold; justify-content:center" />
+            </div>
+
+        </div>
+    </div>
+
+}
+
+<div class="text-center mt-4">
+    @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        function validateAndSubmit() {
+            if ($("#taskForm").valid()) {
+                // Aquí puedes agregar lógica adicional antes de enviar el formulario, si es necesario.
+                $("#taskForm").submit();
+            }
+        }
+    </script>
+}
